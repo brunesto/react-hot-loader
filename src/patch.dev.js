@@ -126,17 +126,7 @@ function resolveType(type) {
     return type;
   }
 
-  // Should the component be excluded from HMR
-  var id = idsByType.get(type);
-  if (__HMR_EXCLUDES__ &&  id)
-   for(var exclude of __HMR_EXCLUDES__){
-     if  (id.indexOf(exclude)>=0) {
-        // console.warn("type excluded: ",id," matching:",exclude)
-        return type;
-     }
-  }
-
-
+ 
 
   hasCreatedElementsByType.set(type, true);
 
@@ -145,6 +135,16 @@ function resolveType(type) {
   if (!id) {
     return type;
   }
+
+ // Exclude the component from HMR?
+  if (typeof __HMR_EXCLUDES__ != 'undefined' &&  id)
+   for(var exclude of __HMR_EXCLUDES__){
+     if  (id.indexOf(exclude)>=0) {
+        //console.warn("type excluded: ",id," matching:",exclude)
+        return type;
+     }
+  }
+
 
   const proxy = proxiesByID[id];
   if (!proxy) {
