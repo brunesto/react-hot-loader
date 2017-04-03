@@ -140,11 +140,17 @@ function resolveType(type) {
   if (typeof __HMR_EXCLUDES__ != 'undefined' &&  id)
    for(var exclude of __HMR_EXCLUDES__){
      if  (id.indexOf(exclude)>=0) {
-        //console.warn("type excluded: ",id," matching:",exclude)
+ 		if (typeof __HMR_EXCLUDES_LOG__ != 'undefined' && __HMR_EXCLUDES_LOG__)
+          console.debug("[HMR] type excluded: ",id," because matching:",exclude)
+        // return the unpatched type
         return type;
      }
   }
 
+  // log the name of the type. This is useful for populating the __HMR_EXCLUDES__ array
+  if (typeof __HMR_EXCLUDES_LOG__ != 'undefined' &&  id) {
+       console.debug("[HMR] type will be proxied: ",id)
+  }
 
   const proxy = proxiesByID[id];
   if (!proxy) {
