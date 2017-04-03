@@ -140,10 +140,10 @@ function resolveType(type) {
   if (typeof __HMR_EXCLUDES__ != 'undefined' &&  id)
    for(var exclude of __HMR_EXCLUDES__){
      if  (id.indexOf(exclude)>=0) {
- 		if (typeof __HMR_EXCLUDES_LOG__ != 'undefined' && __HMR_EXCLUDES_LOG__)
-          console.debug("[HMR] type excluded: ",id," because matching:",exclude)
-        // return the unpatched type
-        return type;
+       if (typeof __HMR_EXCLUDES_LOG__ != 'undefined' && __HMR_EXCLUDES_LOG__)
+         console.debug("[HMR] type excluded: ",id," because matching:",exclude)
+       // return the unpatched type
+       return type;
      }
   }
 
